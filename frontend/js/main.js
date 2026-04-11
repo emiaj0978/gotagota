@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 </button>
 
                                 <!-- Botón Eliminar -->
-                                <button class="btn btn-outline-danger">
+                                <button id="btnEliminar" class="btn btn-outline-danger">
                                     <i class="fas fa-trash"></i> Eliminar
                                 </button>
                             </td>
