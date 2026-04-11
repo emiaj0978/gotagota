@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 </button>
 
                                 <!-- Botón Eliminar -->
-                                <button id="btnEliminar" class="btn btn-outline-danger">
+                                <button id="btnEliminar" data-idcliente = ${cliente.id} class="btn btn-outline-danger">
                                     <i class="fas fa-trash"></i> Eliminar
                                 </button>
                             </td>
@@ -37,4 +37,26 @@ document.addEventListener("DOMContentLoaded", () => {
             //elemento.innerHTML = JSON.stringify(data);
             //console.log(elemento)
         })
+});
+
+//evento de click en javascript
+//creamos una variable que almacene el DOM de ese elemento
+document.addEventListener("click", function (e) {
+    const btnDelete = e.target.closest("#btnEliminar");
+    if (btnDelete) {
+        alert("Eliminando...");
+        const id = btnDelete.dataset.idcliente;
+        fetch(`http://localhost:8080/api/clientes/${id}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Cliente eliminado correctamente.');
+                // Recargar la página o actualizar la tabla
+                location.reload();
+            }else {
+                alert('Error al eliminar el cliente.');
+            }
+        });
+    }
 });
