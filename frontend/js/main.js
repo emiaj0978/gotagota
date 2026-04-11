@@ -46,6 +46,8 @@ document.addEventListener("click", function (e) {
     if (btnDelete) {
         alert("Eliminando...");
         const id = btnDelete.dataset.idcliente;
+        //console.log(id); para en cosole que id es nada mas
+        //fletch("http://localhost:8080/api/clientes/"+id, {)
         fetch(`http://localhost:8080/api/clientes/${id}`, {
             method: 'DELETE'
         })
