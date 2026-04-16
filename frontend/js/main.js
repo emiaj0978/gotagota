@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         <td>${cliente.direccion}</td>
                         <td>
                                 <!-- Botón Editar -->
-                                <button class="btn btn-outline-primary me-2">
+                                <button 
+                                    class="btn btn-outline-primary me-2">
                                     <i class="fas fa-edit"></i> Editar
                                 </button>
 
@@ -29,14 +30,15 @@ document.addEventListener("DOMContentLoaded", () => {
                                 </button>
                             </td>
                 </tr>
-                        `
+                        `;
                 elemento.innerHTML += fila;
                 //console.log(cliente)
 
             }
-            //elemento.innerHTML = JSON.stringify(data);
-            //console.log(elemento)
-        })
+        });
+    //DAR accion al boton
+    const btnSaveCliente = document.getElementById("btn-crearcliente")
+    btnSaveCliente.addEventListener("click", guardarCliente);
 });
 
 //evento de click en javascript
@@ -51,14 +53,41 @@ document.addEventListener("click", function (e) {
         fetch(`http://localhost:8080/api/clientes/${id}`, {
             method: 'DELETE'
         })
-        .then(response => {
-            if (response.ok) {
-                alert('Cliente eliminado correctamente.');
-                // Recargar la página o actualizar la tabla
-                location.reload();
-            }else {
-                alert('Error al eliminar el cliente.');
-            }
-        });
+            .then(response => {
+                if (response.ok) {
+                    alert('Cliente eliminado correctamente.');
+                    // Recargar la página o actualizar la tabla
+                    location.reload();
+                } else {
+                    alert('Error al eliminar el cliente.');
+                }
+            });
     }
 });
+
+
+// creamos una fucion basica
+function guardarCliente() {
+    const nombre = document.getElementById("c_nombre").value;
+    const apellido = document.getElementById("c_apellido").value;
+    const dni = document.getElementById("c_dni").value;
+    const telefono = document.getElementById("c_telefono").value;
+    const direccion = document.getElementById("c_direccion").value;
+    fetch("http://localhost:8080/api/clientes", {
+        method: "POST",
+        headers: { "content-Type": "application/json" },
+        body: JSON.stringify({ nombre, apellido, dni, telefono, direccion })
+    }).then((response) => {
+        console.log(response)
+        if (response.ok) {
+            location.reload()
+
+        } else {
+            alert("error: no se pudo guardar")
+        }
+    }).catch((e)=>{
+        console.log(e) 
+    });
+
+
+}
