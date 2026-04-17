@@ -24,7 +24,6 @@ public class ClienteService {
     public Cliente crearCliente(Cliente cliente){
         return clienteRepository.save(cliente);
     }
-
     //Elimina el cliente por ID
     public void eliminarCliente(Long id) {
         clienteRepository.deleteById(id);
