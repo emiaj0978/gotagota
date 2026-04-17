@@ -1,5 +1,4 @@
 package com.senati.gotagota.controller;
-
 import com.senati.gotagota.entity.Cliente;
 import com.senati.gotagota.service.ClienteService;
 import org.springframework.http.ResponseEntity;
@@ -22,17 +21,24 @@ public class ClienteController {
     public ClienteController(ClienteService clienteService){
         this.clienteService = clienteService;
     }
+
     //GET /api/clientes -> devuelve todos los clientes en formato JSON
     @GetMapping
     public List<Cliente> listar() {return clienteService.listarTodos();}
 
-    //delete/api/clientes/{id} -> elimina un cliente por su id
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable long id){
+    //POST /api/clientes -> para guardar un cliente
+    @PostMapping
+    public ResponseEntity<Cliente> crear(@RequestBody Cliente cliente){
+        return ResponseEntity.ok(clienteService.crearCliente(cliente));
+    }
 
+    //DELETE /api/clientes/{id} -> elimina un cliente por su ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id){
         clienteService.eliminarCliente(id);
         return ResponseEntity.noContent().build();
-
     }
+
+
 }
 
